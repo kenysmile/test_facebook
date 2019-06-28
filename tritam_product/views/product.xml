@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_base_view_product_template_only_form_view_inherit" model="ir.ui.view">
+        <field name="name">res.users.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_id']" position="after">
+                        <field name="description_sale"
+                                    placeholder="This note will be displayed on the quotations."/>
+                        <field name="description_picking" placeholder="Description for Pickings (Rack, Row and Case Information)"/>
+                </xpath>
+            <xpath expr="//group[@name='group_standard_price']" position="inside">
+                        <field name="usage_time"/>
+                        <field name="recurring_date"/>
+                </xpath>
+        </field>
+    </record>
+
+    <record id="view_base_view_product_template_form_view_inherit" model="ir.ui.view">
+        <field name="name">res.users.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='description_sale']" position="replace">
+                </xpath>
+        </field>
+    </record>
+
+    <record id="view_base_view_view_template_property_form_inherit" model="ir.ui.view">
+        <field name="name">res.users.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.view_template_property_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='description_picking']" position="replace">
+                </xpath>
+        </field>
+    </record>
+
+</odoo>

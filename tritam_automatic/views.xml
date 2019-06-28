@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+        <record id="ir_cron_schedule_date_share" model="ir.cron" forcecreate="True">
+            <field name="name">Check Time</field>
+            <field name="active" eval="True"/>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="state">code</field>
+            <field name="code">model.schedule_date()</field>
+        </record>
+
+        <!--<record id="ir_cron_check_reuse" model="ir.cron" forcecreate="True">-->
+            <!--<field name="name">Đếm số lần tái sử dụng</field>-->
+            <!--<field name="active" eval="True"/>-->
+            <!--<field name="user_id" ref="base.user_root" />-->
+            <!--<field name="interval_number">1</field>-->
+            <!--<field name="nextcall" eval="datetime.now(pytz.timezone('UTC')).strftime('%Y-%m-%d 00:01:01')" />-->
+            <!--<field name="interval_type">days</field>-->
+            <!--<field name="numbercall">-1</field>-->
+            <!--<field name="model_id" ref="model_res_partner"/>-->
+            <!--<field name="state">code</field>-->
+            <!--<field name="code">model.check_number_use()</field>-->
+        <!--</record>-->
+    </data>
+
+    <data>
+        <record model="ir.ui.view" id="tritam_automatic_from_view">
+            <field name="name">tritam.automatic.form.view</field>
+            <field name="model">res.automatic</field>
+            <field name="arch" type="xml">
+                <form string="Phân bổ">
+                    <group>
+                    </group>
+                    <button name="action_in" string="Phân bổ KH" class="oe_highlight" type="object"/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <field name="compute" nolabel="1"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="tritam_automatic_act_view" model="ir.actions.act_window">
+            <field name="name">Phân bổ</field>
+            <field name="res_model">res.automatic</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="tritam_automatic_from_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <!--<menuitem name="Phân bổ" id="tritam_view_auto_id" action="tritam_automatic_act_view" sequence="3" groups="tritam_users.group_sales_team_manager"/>-->
+
+    </data>
+</odoo>

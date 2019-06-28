@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!--<template id="menu" inherit_id="web_responsive.menu">-->
+        <!--<xpath expr="//div[hasclass('panel-heading')]"-->
+            <!--position="replace" />-->
+        <!---->
+        <!--&lt;!&ndash;<xpath expr="//div[@id='appDrawerAppPanelBody']" position="after">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="panel-footer" id="appDrawerAppPanelFooter">&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<div class="oe_logo">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<img src="/web/binary/company_logo" />&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</xpath>&ndash;&gt;-->
+    <!--</template>-->
+
+    <template id="webclient_bootstrap"
+        inherit_id="web_responsive.webclient_bootstrap">
+        <xpath expr="//i[hasclass('fa-th')]" position="after">
+            <i class="fa fa-lg fa-chevron-left app-drawer-icon-close"
+                t-translation="off" aria-hidden="true" />
+        </xpath>
+    </template>
+
+</odoo>

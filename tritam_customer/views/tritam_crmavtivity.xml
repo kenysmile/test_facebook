@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--<record id="view_inherit_form_view_activity" model="ir.ui.view">-->
+        <!--<field name="name">Activity</field>-->
+        <!--<field name="model">crm.activity</field>-->
+        <!--<field name="inherit_id" ref="crm.crm_activity_view_form"/>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<xpath expr="//field[@name='recommended_activity_ids']" position="after">-->
+                <!--<field name="x_stage"/>-->
+            <!--</xpath>-->
+        <!--</field>-->
+    <!--</record>-->
+
+    <record id="view_inherit_form_view_crmstage" model="ir.ui.view">
+            <field name="name">CRM stage</field>
+            <field name="model">crm.stage</field>
+            <field name="inherit_id" ref="crm.crm_stage_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='probability']" position="after">
+                    <field name="type_call"/>
+                    <field name="type_called"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    <record id="view_inherit_crm_case_form_view_oppor" model="ir.ui.view">
+            <field name="name">CRM stage</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='lead']" position="inside">
+                    <field name="history_ids" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--<data noupdate="0">-->
+            <!--<record id="ir_cron_schedule_date" model="ir.cron" forcecreate="True">-->
+                <!--<field name="name">Real time need support</field>-->
+                <!--<field name="active" eval="True"/>-->
+                <!--<field name="user_id" ref="base.user_root" />-->
+                <!--<field name="interval_number">1</field>-->
+                <!--<field name="interval_type">days</field>-->
+                <!--<field name="nextcall" eval="datetime.now(pytz.timezone('UTC')).strftime('%Y-%m-%d 00:01:01')" />-->
+                <!--<field name="numbercall">-1</field>-->
+                <!--<field name="model_id" ref="model_res_partner"/>-->
+                <!--<field name="state">code</field>-->
+                <!--<field name="code">model.schedule_support()</field>-->
+            <!--</record>-->
+        <!--</data>-->
+
+</odoo>

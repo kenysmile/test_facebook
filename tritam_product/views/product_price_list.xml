@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_base_view_product_price_list_tree" model="ir.ui.view">
+        <field name="name">price_list.tree.inherit</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                        <field name="date_creat"/>
+                        <field name="x_user_id" string ="Người tạo"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_base_view_product_price_list_form" model="ir.ui.view">
+        <field name="name">price_list.form.inherit</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='country_group_ids']" position="after">
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                        <field name="id" invisible='1'/>
+            </xpath>
+            <xpath expr="//field[@name='item_ids']" position="attributes">
+                 <attribute name="context">{'default_base':'list_price','price_list_id':id}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_base_view_product_price_form" model="ir.ui.view">
+        <field name="name">price_list_item_form_inherit</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='item_ids']/tree/field[@name='price']" position="after">
+                <field name="old_price"/>
+                <field name="product_tmpl_id" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_base_view_product_price_list_item_form" model="ir.ui.view">
+        <field name="name">price_list_item_form_inherit</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/group/group/field[@name='min_quantity']" position="before">
+                <field name="pricelist_id" string ="Pricelist" invisible ="True"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

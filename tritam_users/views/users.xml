@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_base_view_users_form_inherit" model="ir.ui.view">
+        <field name="name">res.users.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                        <field name="code_user"/>
+                        <field name="category_id" widget="many2many_tags" placeholder="Chuyên môn..."/>
+                        <!--<field name="ratio" string="Tỉ lệ (%)"/>-->
+                        <field name="new_contact"/>
+                        <field name="re_contact"/>
+                        <field name="re_sign"/>
+                        <field name="re_sp"/>
+                </xpath>
+
+        </field>
+    </record>
+
+</odoo>

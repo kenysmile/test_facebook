@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_auto_share_configuration" model="ir.ui.view">
+            <field name="name">auto.share.configuration.view</field>
+            <field name="model">res.automatic.share.settings</field>
+            <field name="arch" type="xml">
+                <form string="Configure Purchases" class="oe_form_configuration" create="false" delete="false">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        <button string="Cancel" type="object" name="cancel" class="oe_link" special="cancel"/>
+                    </header>
+                    <group string="Cài đặt ngắt phân bổ">
+                        <group>
+                            <label for="conf_new_contact" string="Contact mới ngắt phân bổ sau "/>
+                            <div>
+                                <field name="conf_new_contact"/>(Ngày)
+                            </div>
+                            <label for="conf_re_use" string="Contact tái sử dụng ngắt phân bổ sau "/>
+                            <div>
+                                <field name="conf_re_use"/>(Ngày)
+                            </div>
+                            <label for="conf_re_sign" string="Contact tái Kí ngắt phân bổ sau "/>
+                            <div>
+                                <field name="conf_re_sign"/>(Ngày)
+                            </div>
+
+                            <!--<label for="conf_support_recall_to_new" string="Contact Cần gọi lại (chăm sóc) -> Tái chăm sóc  "/>-->
+                            <!--<div>-->
+                                <!--<field name="conf_support_recall_to_new"/>(Ngày)-->
+                            <!--</div>-->
+                            <!--<label for="conf_resign_recall_to_new" string="Contact Cần gọi lại (tái ký) -> Tái ký lại  "/>-->
+                            <!--<div>-->
+                                <!--<field name="conf_resign_recall_to_new"/>(Ngày)-->
+                            <!--</div>-->
+                            <!--<label for="conf_resign_sp_to_new" string="Contact Đã Tư vấn tái ký (tái ký) -> Tái ký lại  "/>-->
+                            <!--<div>-->
+                                <!--<field name="conf_resign_sp_to_new"/>(Ngày)-->
+                            <!--</div>-->
+                            <!--<label for="conf_new_cts_knm" string="Contact Sale (KNM) -> Tái sử dụng "/>-->
+                            <!--<div>-->
+                                <!--<field name="conf_new_cts_knm"/>(Ngày)-->
+                            <!--</div>-->
+                            <!--<label for="team_mkt" string="Team MKT"/>-->
+                            <!--<div>-->
+                                <!--<field name="team_mkt"/>-->
+                            <!--</div>-->
+                            <!--<label for="num_cts" string="Số cts"/>-->
+                            <!--<div>-->
+                                <!--<field name="num_cts"/>-->
+                            <!--</div>-->
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_auto_share_configuration" model="ir.actions.act_window">
+            <field name="name">Auto Share Configuration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.automatic.share.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <menuitem id="menu_auto_share_configuration" name="Ngắt Phân Bổ" parent="sales_team.menu_sale_config"  action="action_auto_share_configuration"/>
+</odoo>

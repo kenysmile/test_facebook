@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_inherit_crm_case_form_view_oppor_" model="ir.ui.view">
+        <field name="name">CRM stage</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header//field[@name='stage_id']" position="before">
+                <button name="pop_up_sms" string="Sent Sms" type="object" class="oe_highlight"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="pop_up_confirm_sms_crm_lead" model="ir.ui.view">
+        <field name="name">SMS</field>
+        <field name="model">sale.order.pop.up</field>
+        <field name="arch" type="xml">
+            <form string="Confirm SMS" version="7.0">
+                <group>
+                    <field name="mail_template" context="{'show_group': True}"/>
+                </group>
+                <footer>
+                    <button name="sent_sms" string="Sent Sms" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="btn btn-warning btn-lg" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="tritam_customer_source_view">
+        <field name="name">tritam.customer.source.form.view</field>
+        <field name="model">customer.source</field>
+        <field name="arch" type="xml">
+            <form string="Phân bổ">
+
+                <div class="oe_button_box" name="button_box">
+                    <button name="x_toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                        <field name="x_active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                    </button>
+                    <!--<button class="oe_stat_button" icon="fa-star">-->
+                        <!--<field string="Customer" name="number_customer" widget="statinfo"/>-->
+                    <!--</button>-->
+                </div>
+                    <h3>
+                        <label for="name" string="Tên"/>
+                    </h3>
+                <field name="name"  nolabel="1" style = "width: 40%"/>
+                <group>
+                    <group >
+                        <field name="parent_id"/>
+                        <field name="team_marketing"/>
+                        <field name="utm_id"/>
+                    </group>
+                    <group >
+                        <field name="x_user_id"/>
+                        <field name="x_product_id" string="Sản Phẩm"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="tritam_customer_source_view_tree" model="ir.ui.view">
+            <field name="name">tritam.customer.source_view.tree</field>
+            <field name="model">customer.source</field>
+            <field name="arch" type="xml">
+                <tree string="Intrastat code">
+                    <field name="team_marketing"/>
+                    <field name="name"/>
+                    <field name="x_active"/>
+                    <!--<field name="number_customer" string="Khách hàng"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="tritam_customer_source_action" model="ir.actions.act_window">
+            <field name="name">Nguồn Khách Hàng</field>
+            <field name="res_model">customer.source</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="tritam_customer_source_view_tree"/>
+        </record>
+
+        <menuitem name="Nguồn khách hàng" id="tritam_customer_source" action="tritam_customer_source_action"  parent="sale.menu_sale_config" sequence="15"/>
+        <menuitem name="Kênh Marketing" action="utm.utm_source_action" id="tri_tam_menu_utm_source" parent="sale.menu_sale_config" sequence="4"/>
+</odoo>

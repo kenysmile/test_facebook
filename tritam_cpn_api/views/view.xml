@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+        <record id="view_api_sms_configuration" model="ir.ui.view">
+            <field name="name">auto.api.sms.configuration.view</field>
+            <field name="model">tritam.sms</field>
+            <field name="arch" type="xml">
+                <form string="Configure Api Sms" class="oe_form_configuration" create="false" delete="false">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        <button string="Cancel" type="object" name="cancel" class="oe_link" special="cancel"/>
+                    </header>
+                    <group string="Cài đặt Api SMS">
+                        <group>
+                            <label for="sms_do_pick" string="Gửi Sms DO Pick"/>
+                            <div>
+                            <field name="sms_do_pick"/>
+                            </div>
+                            <label for="sms_do_confirmsale" string="Gửi Sms Confirm Sale"/>
+                            <div>
+                            <field name="sms_do_confirmsale"/>
+                            </div>
+                             <label for="reuturn" string="Có lặp hay không ?"/>
+                            <div>
+                            <field name="reuturn"/>
+                            </div>
+                            <label for="frequency" string="Tần suất"/>
+                            <div>
+                            <field name="frequency"/>(Ngày)
+                            </div>
+                            <label for="loop" string="Số lần lặp"/>
+                            <div>
+                            <field name="loop"/>(Ngày)
+                            </div>
+                            <label for="delay" string="Độ trễ"/>
+                            <div>
+                            <field name="delay"/>(Giây)
+                            </div>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_api_sms_configuration" model="ir.actions.act_window">
+            <field name="name">Api Sms Configuration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tritam.sms</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <menuitem id="menu_spi_sms_configuration" name="Cài Đặt SMS" parent="sales_team.menu_sale_config"  action="action_api_sms_configuration"/>
+</openerp>

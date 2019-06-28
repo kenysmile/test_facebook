@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xml:space="preserve">
+    <t t-extend="KanbanView.Group" t-name="KanbanView.Group">
+        <t t-jquery='span:nth-child(3)' t-operation='replace'>
+           <span t-if="widget.enable_setting and widget.enable_setting!='false'"  t-attf-class="o_kanban_config dropdown #{widget.enable_setting}">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-gear"/></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a class="o_kanban_toggle_fold" href="#">Fold</a></li>
+                    <t t-if="widget.grouped_by_m2o">
+                        <li t-if="widget.editable and widget.id"><a class="o_column_edit" href="#">Edit Stage</a></li>
+                        <li t-if="widget.deletable and widget.id"><a class="o_column_delete" href="#">Delete</a></li>
+                    </t>
+                    <t t-if="widget.has_active_field">
+                        <li><a class="o_column_archive" href="#">Archive Records</a></li>
+                        <li><a class="o_column_unarchive" href="#">Unarchive Records</a></li>
+                    </t>
+                </ul>
+            </span>
+        </t>
+    </t>
+</template>

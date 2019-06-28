@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="crm.lost.reason" id="module_crm_lost_reason_update">
+            <field name="name">Qua Han</field>
+            <field name="active">True</field>
+        </record>
+        <record model="crm.lost.reason" id="module_crm_lost_reason_update2">
+            <field name="name">Sai So</field>
+            <field name="active">True</field>
+        </record>
+    </data>
+</openerp>

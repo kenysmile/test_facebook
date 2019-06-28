@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_history_lead_user,access_history_lead_user,model_history_lead,base.group_user,1,1,1,0
+access_customer_source,access_customer_source,model_customer_source,base.group_user,1,1,1,0
+access_tritam_detail_support,access_tritam_detail_support,model_tritam_detail_support,base.group_user,1,1,1,0

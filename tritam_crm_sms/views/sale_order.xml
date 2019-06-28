@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pop_up_confirm_sms_sale_order" model="ir.ui.view">
+        <field name="name">SMS</field>
+        <field name="model">crm.lead.pop.up</field>
+        <field name="arch" type="xml">
+            <form string="Confirm SMS" version="7.0">
+                <group>
+                    <field name="mail_template" context="{'show_group': True}"/>
+                </group>
+                <footer>
+                    <button name="sent_sms" string="Sent Sms" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="btn btn-warning btn-lg" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

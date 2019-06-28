@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--<record id="mail_template_sms_api" model="mail.template">-->
+        <!--<field name="name">Template SMS DO PICK</field>-->
+        <!--<field name="model_id" ref="tritam_so.model_stock_picking"/>-->
+        <!--<field name="subject">Mau SMS DO PICK</field>-->
+        <!--<field name="body_html" type="xml">-->
+               <!--<p> Testt</p>-->
+            <!--</field>-->
+    <!--</record>-->
+    <!---->
+    <!--<record id="mail_template_sms_api_sale" model="mail.template">-->
+        <!--<field name="name">Con Firm Sale</field>-->
+        <!--<field name="model_id" ref="tritam_so.model_sale_order"/>-->
+        <!--<field name="subject">Mau SMS confirm sale</field>-->
+        <!--<field name="body_html" type="xml">-->
+               <!--<p> Testt</p>-->
+            <!--</field>-->
+    <!--</record>-->
+    <!---->
+    <!--<record id="mail_template_sms_api_sale_do_out" model="mail.template">-->
+        <!--<field name="name">Template SMS DO OUT</field>-->
+        <!--<field name="model_id" ref="tritam_so.model_stock_picking"/>-->
+        <!--<field name="subject">Mau SMS DO OUT</field>-->
+        <!--<field name="body_html" type="xml">-->
+               <!--<p> Testt</p>-->
+            <!--</field>-->
+    <!--</record>-->
+    <!---->
+    <!--<record id="mail_template_sms_api_sale_miss_call" model="mail.template">-->
+            <!--<field name="name">Template SMS Kho Van</field>-->
+            <!--<field name="model_id" ref="tritam_so.model_sale_order"/>-->
+            <!--<field name="subject">Mau SMS DO OUT</field>-->
+            <!--<field name="body_html" type="xml">-->
+                   <!--<p> Testt</p>-->
+                <!--</field>-->
+        <!--</record>-->
+
+    <data noupdate="1" >
+        <record model="tritam.sms" id="module_tritam_sms">
+            <field name="frequency">1</field>
+            <field name="loop">1</field>
+            <field name="reuturn">false</field>
+            <field name="delay">1</field>
+            <field name="sms_do_pick">true</field>
+            <field name="sms_do_confirmsale">true</field>
+        </record>
+    </data>
+</odoo>

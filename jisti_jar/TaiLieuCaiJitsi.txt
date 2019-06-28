@@ -1,0 +1,4 @@
+https://download.jitsi.org/jitsi/nightly/windows/
+t?i version jitsi-2.11-nightly.latest-x64.exe 
+
+Sau khi cài d?t jitsi m?i t?i v? xong thì Coppy swing-ui.jar chép dè lên vào thu m?c C:\Program Files\Jitsi\sc-bundles

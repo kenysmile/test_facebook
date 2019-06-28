@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_search_inherit" model="ir.ui.view">
+        <field name="name">sale.order.search.inherit</field>
+        <field name="model">sale.order</field>
+           <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+               <xpath expr="//search[1]//field[@name='partner_id']" position="attributes">
+                   <attribute name="filter_domain">['|','|','|','|',('partner_id.phone','ilike',self),('partner_id.mobile','ilike',self),('partner_id.display_name','ilike',self),('partner_id.ref','=',self),('partner_id.email','ilike',self)]</attribute>
+                   <!--<attribute name="context">{'group_by':'start_date'}</attribute>-->
+                </xpath>
+                <xpath expr="//search[1]//field[@name='partner_id']" position="after">
+                    <field name="shipping_id"/>
+                    <field name="shipping_fee_return"/>
+                </xpath>
+        </field>
+    </record>
+    <!--<record id="tritam_view_sales_config_inherit_sale_stock" model="ir.ui.view">-->
+        <!--<field name="name">sale settings</field>-->
+        <!--<field name="model">sale.config.settings</field>-->
+        <!--<field name="inherit_id" ref="sale.view_sales_config"/>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<group name="customers" position="inside">-->
+                <!--<field name="number_use"/>-->
+            <!--</group>-->
+        <!--</field>-->
+    <!--</record>-->
+    <record id="view_sale_order_carrier_view_inherit" model="ir.ui.view">
+        <field name="name">sale.order carrier inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="delivery.view_order_form_with_carrier"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='carrier_selection']//field[@name='carrier_id']" position="replace">
+                <field name="carrier_id" context="{'order_id': id}" class="oe_inline" options="{'no_create': True, 'no_open': True}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_sale_order_dates_tree_view_inherit" model="ir.ui.view">
+        <field name="name">sale.order tree inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_order_dates.view_order_tree_date"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='commitment_date']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_base_view_sale_order_tree_view_inherit" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='confirmation_date']" position="after">
+                        <!--<field name="confirmation_date"/>-->
+                        <field name="request_date" string="Ngày khách muốn nhận"/>
+                        <!--<field name="end_date_max" string="Ngày Tái Ký Sau"/>-->
+                        <!--<field name="end_date_min" string="Ngày Tái Ký Trước"/>-->
+                        <!--<field name="start_date_min" string="Ngày CS Trước" invisible="True"/>-->
+            </xpath>
+            <xpath expr="//field[@name='amount_total']" position="before">
+                        <field name="carrier_id"/>
+                        <field name="shipping_id"/>
+                        <field name="shipping_fee"/>
+                        <field name="warehouse_id"/>
+                        <!--<field name="so_pn_2" string="số đơn hàng" widget="monetary"/>-->
+            </xpath>
+            <xpath expr="//field[@name='state']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                </xpath>
+            <xpath expr="//field[@name='invoice_status']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                </xpath>
+        </field>
+    </record>
+
+    <record id="view_sale_order_shipping_form_view_inherit" model="ir.ui.view">
+        <field name="name">sale.order shipping inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_order_dates.view_order_form_inherit_sale_stock_inherit_sale_order_dates"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='sale_shipping']//field[@name='requested_date']" position="replace">
+                        <field name="schedule_date" invisible = "1" />
+            </xpath>
+            <!--<xpath expr="//field[@name='request_date']" position="after">-->
+                    <!--<field name="requested_date" attrs="{'readonly':0}" />-->
+            <!--</xpath>-->
+        </field>
+    </record>
+
+    <record id="view_base_view_sale_order_form_view_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/header/button[@name='action_cancel']" position="replace">
+    		    	<button name="action_cancels" states="draft,sent,sale" type="object" string="Cancel"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']" position="attributes">
+    		    	<attribute name="attrs">{'readonly': [('state', 'in', ('sale','done','cancel'))]}</attribute>
+            </xpath>
+
+            <xpath expr="/form/header/button[@name='action_quotation_send']" position="replace">
+    		    	<button name="action_quotation_send" string="Send by Email" type="object" states="draft"/>
+            </xpath>
+            <xpath expr="/form/header/button[@name='print_quotation']" position="replace">
+    		    	<button name="print_quotation" string="Print" type="object" states="draft"/>
+            </xpath>
+            <!--<xpath expr="/form/header/button[@name='action_quotation_send']" position="after">-->
+    		    	<!--<button name="sent_by_sms" string="Send by SMS" type="object"/>-->
+    		    <!--</xpath>-->
+            <!--<xpath expr="//field[@name='date_order']" position="attributes">-->
+                        <!--<attribute name="invisible">0</attribute>-->
+            <!--</xpath>-->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                        <!--<field name="phone"/>-->
+                        <!--<field name="mobile"/>-->
+                        <field name="so_source_customer"/>
+                        <field name="so_team_marketing"/>
+                        <field name="so_type_contact"/>
+                        <field name="x_status_do"/>
+                        <field name="date_status_do"/>
+                        <field name="x_status_invoice"/>
+                        <field name="x_check_viettel"/>
+                        <field name="internal_reference"/>
+                        <field name="sum_qty"/>
+            </xpath>
+            <xpath expr="//field[@name='confirmation_date']" position="after">
+                    <field name="request_date" string="Ngày khách muốn nhận" />
+                     <field name="shipping_id"/>
+                    <field name="shipping_fee"/>
+                    <field name="shipping_id_return"/>
+                    <field name="shipping_fee_return"/>
+                    <field name="owner_id" string="Nhân viên bán hàng"/>
+                    <field name="warehouse_id" string="Kho hàng"/>
+            </xpath>
+            <xpath expr="//field[@name='validity_date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[1]//field[@name='order_line']//tree[1]//field[@name='product_id']" position="after">
+                            <field name="start_date" string="Ngày bắt đầu chăm sóc" readonly="1"/>
+                            <field name="end_date" string="Ngày cần tái kí" readonly="1"/>
+            </xpath>
+            <xpath expr="//page[1]//field[@name='order_line']//tree[1]//field[@name='tax_id']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//page[1]//field[@name='order_line']//tree[1]//field[@name='qty_delivered']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+            </xpath>
+            <!--<xpath expr="//page[1]//field[@name='order_line']//tree[1]//field[@name='discount']" position="attributes">-->
+                    <!--<attribute name="invisible">True</attribute>-->
+            <!--</xpath>-->
+            <xpath expr="//page[1]//field[@name='order_line']//tree[1]//field[@name='discount']" position="after">
+                    <field name="x_discount"/>
+            </xpath>
+        </field>
+    </record>
+        <record id="view_base_view_sale_order_form_view_inherit_permission" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.permission</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="groups_id" eval="[(4, ref('tritam_users.group_sales_team_manager'))]"/>
+            <field name="arch" type="xml">
+            <xpath expr="//page[1]//field[@name='order_line']//tree[1]//field[@name='price_unit']" position="attributes">
+                <attribute name="invisible">True</attribute>
+                <!--<attribute name="readonly">True</attribute>-->
+            </xpath>
+            <xpath expr="//page[1]//field[@name='order_line']//tree[1]//field[@name='price_unit']" position="after">
+                <field name="x_unit_price"/>
+                <!--<attribute name="readonly">True</attribute>-->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_picking_internal_search_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.internal.search.inherit</field>
+            <field name="model">stock.picking</field>
+               <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+                <field name="arch" type="xml">
+                   <xpath expr="//search[1]//field[@name='name']" position="attributes">
+                       <!--<attribute name="filter_domain">['|','|',('phone','ilike',self),('name','ilike', self),('origin','ilike',self)]</attribute>-->
+                       <attribute name="filter_domain">['|','|',('name','ilike', self),('origin','ilike',self)]</attribute>
+                    </xpath>
+            </field>
+        </record>
+    <record id="view_base_view_view_picking_tree_view_inherit" model="ir.ui.view">
+        <field name="name">view_picking_tree_inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="before">
+                    <field name="name"/>
+                    <field name="origin"/>
+                    <field name="do_request_date" string ="Ngày khách muốn nhận"/>
+                    <field name="scheduled_date" string = "Ngày cần giao hàng"/>
+                    <!--<field name="scheduled_date" string = "Ngày cần giao hàng"/>-->
+                    <field name="partner_id"/>
+                    <field name="x_carrier_id" />
+                    <field name="do_shipping_id"/>
+                    <field name="do_shipping_fee"/>
+                    <field name="write_uid"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='scheduled_date']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='origin']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='backorder_id']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='location_dest_id']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                </xpath>
+        </field>
+    </record>
+    <!--<record id="view_wave_id_tree_view_inherit" model="ir.ui.view">-->
+        <!--<field name="name">view_wave_id_tree_inherit</field>-->
+        <!--<field name="model">stock.picking</field>-->
+        <!--<field name="inherit_id" ref="stock_picking_wave.view_stock_picking_wave_tree_inherit"/>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<xpath expr="//field[@name='wave_id']" position="attributes">-->
+                        <!--<attribute name="invisible">1</attribute>-->
+            <!--</xpath>-->
+        <!--</field>-->
+    <!--</record>-->
+
+    <record id="view_base_view_view_picking_form_view_inherit" model="ir.ui.view">
+        <field name="name">view_picking_form.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/header/button[@name='action_toggle_is_locked']" position="before">
+                <button name="button_draft" type="object" class="oe_stat_button" string="Draft" attrs="{'invisible':[('state','!=','done')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='scheduled_date']" position="before">
+                        <field name="do_request_date" string="Ngày khách muốn nhận"/>
+                </xpath>
+            <xpath expr="//field[@name='scheduled_date']" position="after">
+                        <field name="x_carrier_id" />
+                        <field name="do_shipping_fee"/>
+                        <field name="do_shipping_id"/>
+                        <field name="amount_total"/>
+                </xpath>
+            <xpath expr="//field[@name='partner_id']" position="replace">
+                <field name="partner_id"/>
+                <field name="street"/>
+                <field name="street2" string="Street"/>
+                <field name="state_id"/>
+                <field name="country_id"/>
+                <!--<field name="phone"/>-->
+                <!--<field name="mobile"/>-->
+                </xpath>
+            <xpath expr="//field[@name='origin']" position="after">
+                        <field name="weight_total"/>
+                </xpath>
+            <xpath expr="//field[@name='location_id']" position="attributes">
+                        <attribute name="invisible">False</attribute>
+                        <attribute name="groups"></attribute>
+                </xpath>
+            <xpath expr="//field[@name='location_dest_id']" position="attributes">
+                        <attribute name="invisible">False</attribute>
+                <attribute name="groups"></attribute>
+                </xpath>
+        </field>
+    </record>
+
+
+    <record id="view_base_view_account_invoice_inherit" model="ir.ui.view">
+        <field name="name">account_invoice_form.form.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='team_id']" position="after">
+                        <field name="ai_request_date" string="Ngày khách muốn nhận" />
+                        <!--<field name="ai_schedule_date" string="Ngày cần giao hàng" />-->
+                        <field name="ai_shipping_fee"/>
+                        <field name="ai_shipping_id"/>
+                        <field name="carrier_id"/>
+                </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']//tree[1]//field[@name='discount']" position="after">
+                        <field name="x_discount" />
+                </xpath>
+        </field>
+    </record>
+
+        <record id="account_register_payments_wizard_inherit" model="ir.ui.view">
+        <field name="name">account.register.payments.wizard.inherit</field>
+        <field name="model">account.register.payments</field>
+        <field name="inherit_id" ref="account.view_account_payment_from_invoices"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount']" position="attributes">
+                        <attribute name="string">Tổng tiền COD</attribute>
+                </xpath>
+            <xpath expr="//field[@name='communication']" position="after">
+                        <field name="amount_shipp"/>
+                        <field name="total_money"/>
+                </xpath>
+        </field>
+    </record>
+
+    <!--show sale order invisible when cancel order-->
+    <record id="action_orders" model="ir.actions.act_window">
+        <field name="name">Sales Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+        <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
+        <field name="context">{}</field>
+        <field name="domain">[('state', 'not in', ('draft', 'sent'))]</field>
+        <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+        Create a Quotation, the first step of a new sale.
+        </p><p>
+        Once the quotation is confirmed, it becomes a sales order.
+        You'll be able to invoice it and collect payments.
+        From the <i>Sales Orders</i> menu, you can track delivery
+        orders or services.
+        </p>
+        </field>
+    </record>
+</odoo>

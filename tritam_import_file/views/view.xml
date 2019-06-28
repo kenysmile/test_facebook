@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="custom_pop_message_wizard_view_form" model="ir.ui.view">
+            <field name="name">custom.pop.message.form</field>
+            <field name="model">tritam.import.file</field>
+            <field name="arch" type="xml">
+                <form string="Custom POP Message">
+
+                    <field name="name" readonly="1"/>
+
+                    <footer>
+                       <button string="Close" class="btn-default" special="cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="tritam_import_file_form_view2">
+            <field name="name">tritam.import.file.form</field>
+            <field name="model">tritam.import.file</field>
+            <field name="arch" type="xml">
+                <form string="Kho Vận">
+                    <group>
+                     <!--<field name="name"/>-->
+                    <field name="file_import_name" invisible="True"/>
+                    <field string="File Import" name="file_import" filename="file_import_name" />
+                    <field name="tab_cod"/>
+                    </group>
+                    <button name="check_doi_soat_tab" string="Import" type="object"
+                            attrs="{'invisible':[('file_import', '=', False)]}"/>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="tritam_import_file_form_view">
+            <field name="name">tritam.import.file.form</field>
+            <field name="model">tritam.import.file</field>
+            <field name="arch" type="xml">
+                <form string="Đối Soát">
+                    <group>
+                     <!--<field name="name"/>-->
+                    <field name="file_import_name" invisible="True"/>
+                    <field string="File Import" name="file_import" filename="file_import_name" />
+                    <field name="tab_cod_check"/>
+                    <field name="invoice_date" attrs="{'required': [('tab_cod_check', 'in', [3,4,5])],'invisible':[('tab_cod_check', 'not in', [3,4,5])]}"/>
+                    <field name="journal_id" attrs="{'required': [('tab_cod_check', 'in', [4,5])],'invisible':[('tab_cod_check','not in', [4,5])]}"/>
+                    </group>
+                    <button name="check_doi_soat_tab_check" string="Import" type="object"
+                            attrs="{'invisible':[('file_import', '=', False)]}"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="tritam_tritam_import_file_action" model="ir.actions.act_window">
+            <field name="name">Đối Soát</field>
+            <field name="res_model">tritam.import.file</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="tritam_import_file_form_view"/>
+            <field name="target">new</field>
+        </record>
+        <record id="tritam_tritam_import_file_action2" model="ir.actions.act_window">
+            <field name="name">Kho Vận</field>
+            <field name="res_model">tritam.import.file</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="tritam_import_file_form_view2"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem name="Đối Soát" id="tritam_import_file_menu" action="tritam_tritam_import_file_action"  sequence="100" parent="sale.sale_menu_root" />
+        <menuitem name="Kho Vận" id="tritam_import_file_menu2" action="tritam_tritam_import_file_action2"  sequence="101" parent="sale.sale_menu_root" />
+    </data>
+
+</odoo>

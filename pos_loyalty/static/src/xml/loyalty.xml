@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    
+    <t t-name="LoyaltyPoints">
+        <div class='loyalty-points'>
+            <div class='loyalty-points-title'>Points</div>
+            <t t-if='points_won'>
+                <div class="loyalty-points-won">
+                    <span class='value'>+<t t-esc='widget.format_pr(points_won,rounding)'/></span>  
+                </div>
+            </t>
+            <t t-if='points_spent'>
+                <div class="loyalty-points-spent">
+                    <span class='value'>-<t t-esc='widget.format_pr(points_spent,rounding)'/></span> 
+                </div>
+            </t>
+            <div class='loyalty-points-total'>
+                <span class='value'><t t-esc='widget.format_pr(points_total,rounding)' /></span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="LoyaltyButton">
+        <div class='control-button'>
+            <i class='fa fa-star' /> Rewards
+        </div>
+    </t>
+
+    <t t-extend='OrderWidget'>
+        <t t-jquery='.summary' t-operation='prepend'>
+            <div class='loyalty-points oe_hidden'>.</div>
+        </t>
+    </t>
+
+    <t t-extend='ClientLine'>
+        <t t-jquery='.client-line' t-operation='append'>
+            <td>
+                <t t-esc='widget.format_pr(partner.loyalty_points || 0, widget.pos.loyalty ? widget.pos.loyalty.rounding : 1.0)' />
+            </td>
+        </t>
+    </t>
+
+    <t t-extend="XmlReceipt">
+        <t t-jquery='.before-footer' t-operation='append'>
+            <t t-if='receipt.loyalty'>
+                <div class='loyalty' value-decimals='2' value-autoint='on'>
+                    <div>--------------------------------</div>
+                    <br/>
+                    <div size='double-height'><t t-esc='receipt.loyalty.name'/></div>
+                    <br />
+                    <div><t t-esc='receipt.loyalty.client' /></div>
+                    <br/>
+                    <t t-if='receipt.loyalty.points_won'>
+                        <line><left>Points Won</left><right><value><t t-esc='receipt.loyalty.points_won' /></value></right></line>
+                    </t>
+                    <t t-if='receipt.loyalty.points_spent'>
+                        <line><left>Points Spent</left><right><value><t t-esc='receipt.loyalty.points_spent' /></value></right></line>
+                    </t>
+                    <t t-if='receipt.loyalty.points_total'>
+                        <line><left>Total Points</left><right><value><t t-esc='receipt.loyalty.points_total' /></value></right></line>
+                    </t>
+                    <br />
+                </div>
+            </t>
+        </t>
+    </t>
+
+    <t t-extend='ClientDetails'>
+        <t t-jquery='.client-details-right' t-operation='prepend'>
+            <div class='client-detail'>
+                <span class='label'>Points</span>
+                <span class='detail client-points'>
+                    <t t-esc='widget.format_pr(partner.loyalty_points || 0, widget.pos.loyalty ? widget.pos.loyalty.rounding : 1.0)' />
+                </span>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend='ClientListScreenWidget'>
+        <t t-jquery='.client-list thead tr' t-operation='append'>
+            <th>Points</th>
+        </t>
+    </t>
+
+    <t t-name="PosTicket">
+        <div class="pos-sale-ticket">
+            <div class="pos-center-align"><strong><t t-esc="widget.pos.company.name"/></strong><br /></div>
+            <div class="os-center-align" style="text-align:center">
+<!--                Địa chỉ: <t t-esc="widget.pos.company.country_id[1]"/><br />-->
+                Địa chỉ: <t t-esc="widget.pos.config.receipt_header"/><br />
+                Điện thoại: <t t-esc="widget.pos.company.phone"/>
+            </div>
+            <br/>
+            <div class="pos-center-align"><strong>HOÁ ĐƠN BÁN HÀNG - <t t-esc="order.name.split(' ')[2]"/></strong></div>
+            <br />
+            <div class="receipt-customer">
+                Khách hàng: <t t-esc="widget.pos.get_client().name or ''"/><br />
+            </div>
+            <div class="receipt-address">
+                Địa chỉ: <t t-esc="widget.pos.get_client().street or ''"/><br />
+            </div>
+            <div class="receipt-phone">
+                Điện thoại: <t t-esc="widget.pos.get_client().phone or ''"/><br />
+            </div>
+            <div class="receipt-user">
+                Người bán: <t t-esc="widget.pos.get_cashier().name or ''"/> - <t t-esc="order.formatted_validation_date.split(' ')[0]"/><br />
+            </div>
+            <table class='receipt-orderlines'>
+                <colgroup>
+                    <col width='10%' />
+                    <col width='40%' />
+                    <col width='25%' />
+                    <col width='25%' />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="text-center" style="border-bottom: 1px solid #837673;">STT</th>
+                        <th class="text-center" style="text-align:center; border-bottom: 1px solid #837673">Tên sản phẩm</th>
+                        <th class="text-center" style="border-bottom: 1px solid #837673;text-align:center;">CK(%)</th>
+                        <th class="text-center" style="border-bottom: 1px solid #837673;text-align:center;">Thành tiền</th>
+                    </tr>
+                </thead>
+                <t t-set="stt_1" t-value="0"/>
+                <tr t-foreach="orderlines" t-as="orderline">
+                    <t t-set="stt_1" t-value="stt_1+1"/>
+                    <td style="border-bottom: 1px solid #837673;">
+                        <span style="line-height: 16px;" t-raw="stt_1"/>
+                    </td>
+                    <td style="border-bottom: 1px solid #837673">
+                        <t t-esc="orderline.get_product().display_name"/>
+                        <div style="text-align:center">
+                            <t t-esc="orderline.get_quantity()"/> x <t t-esc="widget.format_currency_no_symbol(orderline.get_unit_price())"/>
+                        </div>
+                    </td>
+                    <td class="pos-right-align" style="border-bottom: 1px solid #837673;vertical-align:bottom;text-align:center;">
+                        <t t-esc="orderline.get_discount()"/>
+                    </td>
+                    <td class="pos-right-align" style="border-bottom: 1px solid #837673;vertical-align:bottom;text-align:center;">
+                        <t t-esc="widget.format_currency_no_symbol(orderline.get_display_price())"/>
+
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <table class='receipt-total'>
+                <t t-foreach="order.get_tax_details()" t-as="taxdetail">
+                    <tr>
+                        <td><t t-esc="taxdetail.name" /></td>
+                        <td class="pos-right-align">
+                            <t t-esc="widget.format_currency(taxdetail.amount)" />
+                        </td>
+                    </tr>
+                </t>
+                <tr>
+                    <td class="pos-right-align">
+                        <strong>CK hoá đơn: <t t-esc="widget.format_currency_no_symbol(order.get_total_discount())"/> VNĐ
+                        </strong>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="pos-right-align">
+                        <strong>
+                        Tổng cộng: <t t-esc="widget.format_currency_no_symbol(order.get_total_with_tax())"/> VNĐ
+                        </strong>
+                    </td>
+                </tr>
+            </table>
+            <t t-if="receipt.footer">
+                <br />
+                <div style='text-align:center'>
+                    <t t-esc="receipt.footer" />
+                </div>
+            </t>
+        </div>
+    </t>
+    <t t-name="Chrome">
+        <div class="pos">
+            <div class="pos-topheader">
+                <div class="pos-branding">
+                    <img class="pos-logo" src="/pos_loyalty/static/src/img/logo.png" />
+                    <span class="placeholder-UsernameWidget"></span>
+                </div>
+                <div class="pos-rightheader">
+                    <span class="placeholder-OrderSelectorWidget"></span>
+                    <!-- here goes header buttons -->
+                </div>
+            </div>
+
+            <div class="pos-content">
+
+                <div class='window'>
+                    <div class='subwindow'>
+                        <div class='subwindow-container'>
+                            <div class='subwindow-container-fix screens'>
+                                <!-- here go the screens -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="placeholder-OnscreenKeyboardWidget"></div>
+            </div>
+
+            <div class='popups'>
+                <!-- here go the popups -->
+            </div>
+
+            <div class="loader">
+                <div class='loader-feedback oe_hidden'>
+                    <h1 class='message'>Loading</h1>
+                    <div class='progressbar'>
+                        <div class='progress' width='50%'></div>
+                    </div>
+                    <div class='oe_hidden button skip'>
+                        Skip
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

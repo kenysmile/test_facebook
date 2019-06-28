@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_partner_filter_inherit" model="ir.ui.view">
+        <field name="name">res.partner.select.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search[1]//field[@name='name']" position="attributes">
+                <!--<field name="name" string="Số Điện Thoại" filter_domain="[('phone','ilike',self)]"/>-->
+                <attribute name="filter_domain">
+                    ['|','|','|',('phone','ilike',self),('display_name','ilike',self),('ref','=',self),('email','ilike',self)]
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_inherit_tree_view_view_partner_tree" model="ir.ui.view">
+        <field name="name">Customer</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="category_id"/>
+                <!--<field name="nguon"/>-->
+                <field name="level"/>
+                <field name="create_on"/>
+                <field name="create_by"/>
+                <field name="date_sub"/>
+                <field name="x_user_id"/>
+                <!--<field name="sale_order_count" string="Số đơn hàng" sum="Total 2 order invoice" widget="monetary"/>-->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="tritam_customer.tritam_customer" model="ir.ui.view">
+        <field name="name">Customer</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='function']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <!--<xpath expr="//field[@name='fax']" position="attributes">-->
+                <!--<attribute name="invisible">True</attribute>-->
+            <!--</xpath>-->
+            <!--<xpath expr="//field[@name='city']" position="attributes">-->
+            <!--<attribute name="placeholder">Ward</attribute>-->
+            <!--<attribute name="context">{'state_id':state_id}</attribute>-->
+
+            <!--</xpath>-->
+            <xpath expr="//field[@name='country_id']" position="attributes">
+                <attribute name="placeholder">Tỉnh thành</attribute>
+            </xpath>
+            <xpath expr="//field[@name='state_id']" position="attributes">
+                <attribute name="placeholder">Quận huyện</attribute>
+            </xpath>
+            <xpath expr="//field[@name='phone']" position="attributes">
+                <attribute name="required">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='lang']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='website']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//page[@name='sales_purchases']//group[@name='purchase']" position='attributes'>
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//page[@name='internal_notes']" position='attributes'>
+                <attribute name="autofocus">True</attribute>
+            </xpath>
+            <xpath expr="//page[1]" position='before'>
+                <!--<page name="internal_notes" string="Ghi chú ban đầu">-->
+                <!--<field name="comment" placeholder="Internal note..."/>-->
+                <!--</page>-->
+                <page name="detail_support" string="Ngày cần chăm sóc và tái kí">
+                    <field name="detail_support_ids">
+                        <tree string="Contacts" create="false" delete="false">
+                            <field name="product_id" readonly="1"/>
+                            <field name="order_id" readonly="1"/>
+                            <field name="start_date" string="Ngày bắt đầu chăm sóc" readonly="1"/>
+                            <!--<filter string="start_date" domain="[]" context="{'group_by':'month_name'}"/>-->
+                            <field name="end_date" string="Ngày cần tái kí" readonly="1"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//page[@name='sales_purchases']//group[@name='sale']//field[@name ='user_id']"
+                   position='attributes'>
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="after">
+                <!--<field name="nguon_khac" string="Nguồn khác"/>-->
+                <field name="source_customer" required="1"/>
+                <field name="team_marketing"/>
+                <field name="x_product_id"/>
+                <field name="utm_id"/>
+                <field name="level" invisible="1"/>
+                <!--<field name="x_user_id" string="Nhân viên bán hàng"/>-->
+                <field name="date_sub"/>
+                <!--<field name="kip_sub"/>-->
+                <field name="str_category" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="attributes">
+                <attribute name="context">{'partner_search':1,'flag_create':id}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='mobile']" position="after">
+                <field name="cmtnd"/>
+                <field name="dublicate"/>
+                <field name="age_cts"/>
+            </xpath>
+            <xpath expr="//field[@name='title']" position="after">
+                <field name="mskh"/>
+                <field name="create_by" readonly="1"/>
+                <field name="create_on" readonly="1"/>
+                <field name="allocate" readonly="1"/>
+                <field name="reuse" readonly="1"/>
+                <field name="to_sign" readonly="1"/>
+                <field name="to_support" readonly="1"/>
+                <field name="state_reuse" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='comment']" position="after">
+                <button name="import_location" string="import" type="object" class="btn-danger" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_crm_lead_search_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.search.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search[1]//field[@name='partner_id']" position="attributes">
+                <attribute name="filter_domain">
+                    ['|','|','|','|',('partner_id.phone','ilike',self),('partner_id.mobile','ilike',self),('partner_id.display_name','ilike',self),('partner_id.ref','=',self),('partner_id.email','ilike',self)]
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="tritam_customer.crm_lead" model="ir.ui.view">
+        <field name="name">CRM</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']//button[@name='action_schedule_meeting']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="context">{'default_type': 'opportunity','default_user_id':
+                    uid,'search_default_assigned_to_me': 1,'stage_id':stage_id}
+                </attribute>
+                <attribute name="domain">[('customer', '=', True),('level','=',stage_id)]</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="x_product_id" string="Sản phẩm"/>
+            </xpath>
+            <xpath expr="//field[@name='team_id']" position="after">
+                <field name="write_uid" string="Người cập nhật" readonly="1"/>
+                <field name="write_date" string="Ngày cập nhật gần nhất" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="type_contact"/>
+                <field name="date_create" invisible="1"/>
+                <field name="crm_lead_category_ids" widget="many2many_tags"/>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="required">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='email_from']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="crm_lead_kanban_views_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.kanban.vew.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_kanban_content']/div[2]" position="after">
+                <div>
+                    <strong>Sản phẩm:</strong>
+                    <span>
+                        <field name="x_product_id"/>
+                    </span>
+                </div>
+
+            </xpath>
+        </field>
+    </record>
+
+    <!--<record id="crm_activity_log_view_form_schedule_tritam_inherit" model="ir.ui.view">-->
+        <!--<field name="name">Schedule Next</field>-->
+        <!--<field name="model">crm.activity.log</field>-->
+        <!--<field name="inherit_id" ref="crm.crm_activity_log_view_form_schedule"/>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<xpath expr="//field[@name='recommended_activity_id']" position="after">-->
+                <!--<t attrs="{'invisible':[('recommended_activity_id','=',False)]}">-->
+                    <!--<p>-->
+                        <!--<strong>Option :</strong>-->
+                    <!--</p>-->
+                    <!--<group>-->
+                        <!--<field name="numbers" width="30%"/>-->
+                        <!--<field name="to_date" width="30%"/>-->
+                    <!--</group>-->
+                <!--</t>-->
+            <!--</xpath>-->
+        <!--</field>-->
+    <!--</record>-->
+
+    <!--<record id="tritam_customer.log_activities" model="ir.ui.view">-->
+        <!--<field name="name">Log Activity</field>-->
+        <!--<field name="model">crm.activity.log</field>-->
+        <!--<field name="inherit_id" ref="crm.crm_activity_log_view_form"/>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<xpath expr="//field[@name='lead_id']" position="attributes">-->
+                <!--<attribute name="invisible">not context.get('planned_revenue')</attribute>-->
+            <!--</xpath>-->
+        <!--</field>-->
+    <!--</record>-->
+
+    <!--<record id="crm_inherit_log" model="ir.ui.view">-->
+        <!--<field name="name">Log an Activity and Schedule</field>-->
+        <!--<field name="model">crm.activity.log</field>-->
+        <!--<field name="inherit_id" ref="crm.crm_activity_log_view_form"/>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<xpath expr="//field[@name='date_deadline']" position="after">-->
+                <!--<field name="level"/>-->
+            <!--</xpath>-->
+            <!--<xpath expr="//field[@name='title_action']" position="after">-->
+                <!--<field name="time_begin" invisible="1"/>-->
+                <!--<field name="duration" invisible="1"/>-->
+            <!--</xpath>-->
+        <!--</field>-->
+    <!--</record>-->
+
+    <!--<record id="res_partner_kanban_view_inherit" model="ir.ui.view">-->
+        <!--<field name="name">Kanban view</field>-->
+        <!--<field name="model">res.partner</field>-->
+        <!--<field name="inherit_id" ref="base.res_partner_kanban_view"/>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<xpath expr="//div[@class='oe_kanban_details']" position="inside">-->
+                <!--<ul>-->
+                    <!--<li t-if="record.level.raw_value" class="o_text_overflow">-->
+                        <!--<field name="level"/>-->
+                    <!--</li>-->
+                    <!--<br/>-->
+                    <!--<li t-if="record.activities_count.raw_value" class="o_text_overflow">Các hoạt động :-->
+                        <!--<field name="activities_count"/>-->
+                    <!--</li>-->
+                    <!--<br/>-->
+                    <!--<li t-if="record.str_category.raw_value" class="o_text_overflow">-->
+                        <!--<field name="str_category"/>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</xpath>-->
+        <!--</field>-->
+    <!--</record>-->
+</odoo>

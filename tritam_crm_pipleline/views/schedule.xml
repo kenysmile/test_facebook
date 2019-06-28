@@ -1,0 +1,76 @@
+<odoo>
+        <!--<record id="cron_do_task" forcecreate='True' model="ir.cron">-->
+            <!--<field name="name">Do -Task</field>-->
+            <!--<field eval="False" name="active"/>-->
+            <!--<field name="user_id" ref="base.user_root"/>-->
+            <!--<field name="interval_number">15</field>-->
+            <!--<field name="interval_type">minutes</field>-->
+            <!--<field name="numbercall">-1</field>-->
+            <!--<field name="model_id" ref="<strong>model_my_task</strong>"/>-->
+            <!--<field name="state">code</field>-->
+            <!--<field name="code">model.<strong>cron_do_task</strong>()</field>-->
+        <!--</record>-->
+
+
+
+
+
+
+
+
+        <!--<record id="ir_cron_update_count_invoice" model="ir.cron" forcecreate="True">-->
+            <!--<field name="name">Count invoice</field>-->
+            <!--<field name="active" eval="True"/>-->
+            <!--<field name="user_id" ref="base.user_root" />-->
+            <!--<field name="interval_number">1</field>-->
+            <!--<field name="interval_type">days</field>-->
+            <!--<field name="nextcall" eval="datetime.now(pytz.timezone('UTC')).strftime('%Y-%m-%d 00:01:01')" />-->
+            <!--<field name="numbercall">-1</field>-->
+            <!--<field name="model" eval="'res.partner'"/>-->
+            <!--<field name="function" eval="'compute_sum_so_2'"/>-->
+            <!--<field name="args" eval="'()'"/>-->
+        <!--</record>-->
+
+        <record id="ir_cron_schedule_pipleline" model="ir.cron" forcecreate="True">
+            <field name="name">Check Ticket Pipline</field>
+            <field name="active" eval="True"/>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall" eval="datetime.now(pytz.timezone('UTC')).strftime('%Y-%m-%d 00:01:01')" />
+            <field name="numbercall">-1</field>
+
+            <field name="model_id" ref="model_crm_lead"/>
+            <field name="state">code</field>
+            <field name="code">model.schedule_reject_ticket()</field>
+        </record>
+
+        <!--<record id="ir_cron_schedule_pipleline_resign_sp" model="ir.cron" forcecreate="True">-->
+            <!--<field name="name">Thu Contacts Tái Ký (Đã Tư Vấn TK 10N) Về Kho Tái Ký</field>-->
+            <!--<field name="active" eval="True"/>-->
+            <!--<field name="user_id" ref="base.user_root" />-->
+            <!--<field name="interval_number">1</field>-->
+            <!--<field name="interval_type">days</field>-->
+            <!--<field name="nextcall" eval="datetime.now(pytz.timezone('UTC')).strftime('%Y-%m-%d 00:01:01')" />-->
+            <!--<field name="numbercall">-1</field>-->
+            <!--<field name="model" eval="'crm.lead'"/>-->
+            <!--<field name="function" eval="'schedule_reject_ticket_to_sign_sp'"/>-->
+            <!--<field name="args" eval="'()'"/>-->
+        <!--</record>-->
+
+
+       <!--<record id="ir_cron_schedule_New_contact_knm_reuse" model="ir.cron" forcecreate="True">-->
+            <!--<field name="name">Thu Cts Mới (KNM 18h) Về Tái Sử Dụng Sau 18h</field>-->
+            <!--<field name="active" eval="True"/>-->
+            <!--<field name="user_id" ref="base.user_root" />-->
+            <!--<field name="interval_number">1</field>-->
+            <!--<field name="interval_type">days</field>-->
+            <!--<field name="nextcall" eval="datetime.now(pytz.timezone('UTC')).strftime('%Y-%m-%d 11:00:00')" />-->
+            <!--<field name="numbercall">-1</field>-->
+            <!--<field name="model" eval="'crm.lead'"/>-->
+            <!--<field name="function" eval="'schedule_reject_ticket_new_to_reuse'"/>-->
+            <!--<field name="args" eval="'()'"/>-->
+       <!--</record>-->
+
+</odoo>
+

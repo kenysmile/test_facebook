@@ -1,0 +1,14 @@
+<odoo>
+    <record id="ir_cron_change_active_customer1" model="ir.cron" forcecreate="True">
+        <field name="name">Đổi trạng force_assign</field>
+        <field name="active" eval="False"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="nextcall" eval="datetime.now(pytz.timezone('UTC')).strftime('%Y-%m-%d 00:00:00')"/>
+        <field name="numbercall">1</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">model.update_force_assign()</field>
+    </record>
+</odoo>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-extend="ListView.buttons">
+        <t t-jquery="div.o_list_buttons" t-operation="append">
+            <t t-if="widget.modelName == 'crm.lead'">
+                <button t-if="widget" type="button" id='new_contact' class="btn btn-primary btn-sm">
+                    <span>Nhận contact mới</span>
+                </button>
+            </t>
+        </t>
+    </t>
+</templates>
+
+
+<!--<templates xml:space="preserve">-->
+<!--    <t t-name="KanbanView.buttons">-->
+<!--        <div>-->
+<!--         <t t-if="op_create != 0">-->
+<!--             <button type="button" class="btn btn-primary btn-sm o-kanban-button-new" accesskey="c">-->
+<!--                <t t-esc="create_text || _t('Create')"/>-->
+<!--            </button>-->
+<!--        </t>-->
+<!--            <button type="button" id = "button_new_contact" class="btn btn-primary btn-sm" >-->
+<!--               Nhận contact mới-->
+<!--            </button>-->
+<!--        </div>-->
+<!--    </t>-->
+<!--</templates>-->
+<!--&lt;!&ndash;            <button type="button" id = "button_hotline" class="btn btn-primary btn-sm" >&ndash;&gt;-->
+<!--&lt;!&ndash;               Nhận contact Hotline&ndash;&gt;-->
+<!--&lt;!&ndash;            </button>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button type="button" id = "button_18h" class="btn btn-primary btn-sm" >&ndash;&gt;-->
+<!--&lt;!&ndash;               Nhận tái sử dụng sau 18h&ndash;&gt;-->
+<!--&lt;!&ndash;            </button>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button type="button" id = "button_re_use" class="btn btn-primary btn-sm" >&ndash;&gt;-->
+<!--&lt;!&ndash;               Nhận contact tái sử dụng&ndash;&gt;-->
+<!--&lt;!&ndash;            </button>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button type="button" id = "button_re_contact" class="btn btn-primary btn-sm" >&ndash;&gt;-->
+<!--&lt;!&ndash;               Nhận contact tái ký&ndash;&gt;-->
+<!--&lt;!&ndash;            </button>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button type="button" id = "button_sp" class="btn btn-primary btn-sm" >&ndash;&gt;-->
+<!--&lt;!&ndash;               Nhận contact cần chăm sóc&ndash;&gt;-->
+<!--&lt;!&ndash;            </button>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button type="button" id = "button_re_sign_contact" class="btn btn-primary btn-sm" >&ndash;&gt;-->
+<!--&lt;!&ndash;               Nhận contact tái ký lại&ndash;&gt;-->
+<!--&lt;!&ndash;            </button>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button type="button" id = "button_re_support_contact" class="btn btn-primary btn-sm" >&ndash;&gt;-->
+<!--&lt;!&ndash;               Nhận Contact tái chăm sóc&ndash;&gt;-->
+<!--&lt;!&ndash;            </button>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <button type="button" id = "re_supported_contact" class="btn btn-primary btn-sm" >&ndash;&gt;-->
+<!--&lt;!&ndash;               Nhận Contact CS L3.3 TK&ndash;&gt;-->
+<!--&lt;!&ndash;            </button>&ndash;&gt;-->
+<!--        </div>-->
+
+<!--    </t>-->
+<!--&lt;!&ndash;    <t t-extend="crm.KanbanView.buttons">&ndash;&gt;-->
+<!--&lt;!&ndash;        <t t-jquery="button.o-kanban-button-new" t-operation="after">&ndash;&gt;-->
+<!--&lt;!&ndash;            <t t-call="KanbanView.buttons.1"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        </t>&ndash;&gt;-->
+<!--&lt;!&ndash;    </t>&ndash;&gt;-->
+<!--</templates>-->

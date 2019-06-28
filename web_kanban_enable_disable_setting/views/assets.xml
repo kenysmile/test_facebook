@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+		<template id="assets_backend" name="Asset Backend Theme" inherit_id="web.assets_backend">
+			<xpath expr=".">
+				<script src="/web_kanban_enable_disable_setting/static/src/js/kanban_attribute.js"></script>
+			</xpath>
+		</template>
+    </data>
+</odoo>
